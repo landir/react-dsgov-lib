@@ -1,0 +1,58 @@
+{
+  "name": "react-dsgov-lib",
+  "version": "2.2.0",
+  "description": "Design System do Governo Federal",
+  "keywords": [
+    "dsgov",
+    "componentes",
+    "design",
+    "system",
+    "react"
+  ],
+  "license": "ISC",
+  "homepage": "https://dsgov.estaleiro.serpro.gov.br",
+  "repository": {
+    "type": "git",
+    "url": "https://git.br/dsgov.br.git"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "storybook": "start-storybook -p 6006 -c .storybook",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "next": "9.5.4",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "sass": "^1.26.10"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.0",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-flow": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "@storybook/addon-info": "^5.3.21",
+    "@storybook/react": "^6.3.11",
+    "@types/enzyme": "^3.10.5",
+    "@types/jest": "^26.0.8",
+    "@types/node": "^14.0.27",
+    "@types/react": "^16.9.44",
+    "babel-jest": "^26.2.2",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-preset-react-app": "^9.1.2",
+    "css-loader": "^4.2.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "jest": "^26.2.2",
+    "sass-loader": "^9.0.2",
+    "style-loader": "^1.2.1",
+    "ts-jest": "^26.1.4",
+    "typescript": "^3.9.7"
+  }
+}
