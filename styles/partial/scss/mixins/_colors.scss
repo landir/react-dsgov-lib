@@ -1,0 +1,286 @@
+// Criar cores de superfície
+@mixin make-bg-color($key, $value) {
+  .bg-#{$key} {
+    --background: var(--#{$key});
+    background: var(--#{$key}) !important;
+  }
+}
+
+// Criar cores de leitura
+@mixin make-text-color($key, $value) {
+  .text-#{$key} {
+    --color: var(--#{$key});
+    color: var(--color) !important;
+  }
+}
+
+// Criar cores de borda
+@mixin make-border-color($key, $value) {
+  .border-#{$key} {
+    --border-color: var(--#{$key});
+    border-color: var(--border-color) !important;
+  }
+}
+
+// Cores blue
+@mixin family-blue {
+  @include token-color($color-blue);
+  @include token-color($color-blue-cool);
+  @include token-color($color-blue-warm);
+  @include token-color($color-blue-vivid);
+  @include token-color($color-blue-cool-vivid);
+  @include token-color($color-blue-warm-vivid);
+  @include token-color-rgb($color-blue);
+  @include token-color-rgb($color-blue-cool);
+  @include token-color-rgb($color-blue-warm);
+  @include token-color-rgb($color-blue-vivid);
+  @include token-color-rgb($color-blue-cool-vivid);
+  @include token-color-rgb($color-blue-warm-vivid);
+  @include token-color-hsl($color-blue);
+  @include token-color-hsl($color-blue-cool);
+  @include token-color-hsl($color-blue-warm);
+  @include token-color-hsl($color-blue-vivid);
+  @include token-color-hsl($color-blue-cool-vivid);
+  @include token-color-hsl($color-blue-warm-vivid);
+}
+// Cores cyan
+@mixin family-cyan {
+  @include token-color($color-cyan);
+  @include token-color($color-cyan-vivid);
+  @include token-color-rgb($color-cyan);
+  @include token-color-rgb($color-cyan-vivid);
+  @include token-color-hsl($color-cyan);
+  @include token-color-hsl($color-cyan-vivid);
+}
+// Cores gold
+@mixin family-gold {
+  @include token-color($color-gold);
+  @include token-color($color-gold-vivid);
+  @include token-color-rgb($color-gold);
+  @include token-color-rgb($color-gold-vivid);
+  @include token-color-hsl($color-gold);
+  @include token-color-hsl($color-gold-vivid);
+}
+// Cores gray
+@mixin family-gray {
+  @include token-color($color-gray);
+  @include token-color($color-gray-cool);
+  @include token-color($color-gray-warm);
+  @include token-color-rgb($color-gray);
+  @include token-color-rgb($color-gray-cool);
+  @include token-color-rgb($color-gray-warm);
+  @include token-color-hsl($color-gray);
+  @include token-color-hsl($color-gray-cool);
+  @include token-color-hsl($color-gray-warm);
+}
+// Cores green
+@mixin family-green {
+  @include token-color($color-green);
+  @include token-color($color-green-cool);
+  @include token-color($color-green-warm);
+  @include token-color($color-green-vivid);
+  @include token-color($color-green-cool-vivid);
+  @include token-color($color-green-warm-vivid);
+  @include token-color-rgb($color-green);
+  @include token-color-rgb($color-green-cool);
+  @include token-color-rgb($color-green-warm);
+  @include token-color-rgb($color-green-vivid);
+  @include token-color-rgb($color-green-cool-vivid);
+  @include token-color-rgb($color-green-warm-vivid);
+  @include token-color-hsl($color-green);
+  @include token-color-hsl($color-green-cool);
+  @include token-color-hsl($color-green-warm);
+  @include token-color-hsl($color-green-vivid);
+  @include token-color-hsl($color-green-cool-vivid);
+  @include token-color-hsl($color-green-warm-vivid);
+}
+// Cores indigo
+@mixin family-indigo {
+  @include token-color($color-indigo);
+  @include token-color($color-indigo-cool);
+  @include token-color($color-indigo-warm);
+  @include token-color($color-indigo-vivid);
+  @include token-color($color-indigo-cool-vivid);
+  @include token-color($color-indigo-warm-vivid);
+  @include token-color-rgb($color-indigo);
+  @include token-color-rgb($color-indigo-cool);
+  @include token-color-rgb($color-indigo-warm);
+  @include token-color-rgb($color-indigo-vivid);
+  @include token-color-rgb($color-indigo-cool-vivid);
+  @include token-color-rgb($color-indigo-warm-vivid);
+  @include token-color-hsl($color-indigo);
+  @include token-color-hsl($color-indigo-cool);
+  @include token-color-hsl($color-indigo-warm);
+  @include token-color-hsl($color-indigo-vivid);
+  @include token-color-hsl($color-indigo-cool-vivid);
+  @include token-color-hsl($color-indigo-warm-vivid);
+}
+// Cores magenta
+@mixin family-magenta {
+  @include token-color($color-magenta);
+  @include token-color($color-magenta-vivid);
+  @include token-color-rgb($color-magenta);
+  @include token-color-rgb($color-magenta-vivid);
+  @include token-color-hsl($color-magenta);
+  @include token-color-hsl($color-magenta-vivid);
+}
+// Cores mint
+@mixin family-mint {
+  @include token-color($color-mint);
+  @include token-color($color-mint-cool);
+  @include token-color($color-mint-vivid);
+  @include token-color($color-mint-cool-vivid);
+  @include token-color-rgb($color-mint);
+  @include token-color-rgb($color-mint-cool);
+  @include token-color-rgb($color-mint-vivid);
+  @include token-color-rgb($color-mint-cool-vivid);
+  @include token-color-hsl($color-mint);
+  @include token-color-hsl($color-mint-cool);
+  @include token-color-hsl($color-mint-vivid);
+  @include token-color-hsl($color-mint-cool-vivid);
+}
+// Cores orange
+@mixin family-orange {
+  @include token-color($color-orange);
+  @include token-color($color-orange-warm);
+  @include token-color($color-orange-vivid);
+  @include token-color($color-orange-warm-vivid);
+  @include token-color-rgb($color-orange);
+  @include token-color-rgb($color-orange-warm);
+  @include token-color-rgb($color-orange-vivid);
+  @include token-color-rgb($color-orange-warm-vivid);
+  @include token-color-hsl($color-orange);
+  @include token-color-hsl($color-orange-warm);
+  @include token-color-hsl($color-orange-vivid);
+  @include token-color-hsl($color-orange-warm-vivid);
+}
+// Cores pure
+@mixin family-pure {
+  @include token-color($color-pure);
+  @include token-color-rgb($color-pure);
+  @include token-color-hsl($color-pure);
+}
+// Cores red
+@mixin family-red {
+  @include token-color($color-red);
+  @include token-color($color-red-cool);
+  @include token-color($color-red-warm);
+  @include token-color($color-red-vivid);
+  @include token-color($color-red-cool-vivid);
+  @include token-color($color-red-warm-vivid);
+  @include token-color-rgb($color-red);
+  @include token-color-rgb($color-red-cool);
+  @include token-color-rgb($color-red-warm);
+  @include token-color-rgb($color-red-vivid);
+  @include token-color-rgb($color-red-cool-vivid);
+  @include token-color-rgb($color-red-warm-vivid);
+  @include token-color-hsl($color-red);
+  @include token-color-hsl($color-red-cool);
+  @include token-color-hsl($color-red-warm);
+  @include token-color-hsl($color-red-vivid);
+  @include token-color-hsl($color-red-cool-vivid);
+  @include token-color-hsl($color-red-warm-vivid);
+}
+// Cores violet
+@mixin family-violet {
+  @include token-color($color-violet);
+  @include token-color($color-violet-warm);
+  @include token-color($color-violet-vivid);
+  @include token-color($color-violet-warm-vivid);
+  @include token-color-rgb($color-violet);
+  @include token-color-rgb($color-violet-warm);
+  @include token-color-rgb($color-violet-vivid);
+  @include token-color-rgb($color-violet-warm-vivid);
+  @include token-color-hsl($color-violet);
+  @include token-color-hsl($color-violet-warm);
+  @include token-color-hsl($color-violet-vivid);
+  @include token-color-hsl($color-violet-warm-vivid);
+}
+// Cores yellow
+@mixin family-yellow {
+  @include token-color($color-yellow);
+  @include token-color($color-yellow-vivid);
+  @include token-color-rgb($color-yellow);
+  @include token-color-rgb($color-yellow-vivid);
+  @include token-color-hsl($color-yellow);
+  @include token-color-hsl($color-yellow-vivid);
+}
+
+// Compatibilidade com versões anteriores do dsgov
+// Criar cores de fundo
+@mixin bg-colors($item, $value) {
+  .bg-#{$item} {
+    @include colorize($item);
+    background: var(--color-#{$item}) !important;
+  }
+}
+
+// Criar cores de textos
+@mixin text-colors($item, $value) {
+  .text-#{$item} {
+    color: var(--color-#{$item}) !important;
+  }
+}
+
+// Criar cores de bordas
+@mixin border-colors($item, $value) {
+  .border-#{$item} {
+    border-color: var(--color-#{$item}) !important;
+  }
+}
+
+@mixin colorize($color) {
+  @if $color == "primary-lighten-01" {
+    @include dark-mode;
+  } @else if $color == "primary-lighten-02" {
+    @include dark-mode;
+  } @else if $color == "primary-default" {
+    @include dark-mode;
+  } @else if $color == "primary-darken-01" {
+    @include dark-mode;
+  } @else if $color == "primary-darken-02" {
+    @include dark-mode;
+  } @else if $color == "secondary-06" {
+    @include dark-mode;
+  } @else if $color == "secondary-07" {
+    @include dark-mode;
+  } @else if $color == "secondary-08" {
+    @include dark-mode;
+  } @else if $color == "secondary-09" {
+    @include dark-mode;
+  } @else if $color == "highlight" {
+    @include dark-mode;
+  } @else if $color == "success" {
+    @include dark-mode;
+  } @else if $color == "danger" {
+    @include dark-mode;
+  } @else if $color == "info" {
+    @include dark-mode;
+  } @else if $color == "support-01" {
+    @include dark-mode;
+  } @else if $color == "support-03" {
+    @include dark-mode;
+  } @else if $color == "support-04" {
+    @include dark-mode;
+  } @else if $color == "support-07" {
+    @include dark-mode;
+  } @else if $color == "support-08" {
+    @include dark-mode;
+  } @else if $color == "facebook" {
+    @include dark-mode;
+  } @else if $color == "google-plus" {
+    @include dark-mode;
+  } @else if $color == "linkedin" {
+    @include dark-mode;
+  } @else if $color == "twitter" {
+    @include dark-mode;
+  } @else if $color == "whatsapp" {
+    @include dark-mode;
+  } @else if $color == "xbox" {
+    @include dark-mode;
+  } @else if $color == "yahoo" {
+    @include dark-mode;
+  } @else if $color == "youtube" {
+    @include dark-mode;
+  }
+}

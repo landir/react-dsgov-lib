@@ -1,0 +1,65 @@
+// The mixin "spacing-directions" was based on helper "spacing" from bulma.io
+
+/// Cria espaçamentos para direções e orientações
+/// Modos de uso:
+/// - @include spacing-directions(sigla, propriedade, chave, valor);
+/// - @include spacing-directions(sigla, propriedade, chave, valor, breakpoint);
+@mixin spacing-directions($property-shortcut, $property, $key, $value, $breakpoint) {
+  $directions: ("top": "t", "right": "r", "bottom": "b", "left": "l");
+  // Todas as direções
+  .#{$property-shortcut}#{if($breakpoint, "-#{$breakpoint}", "")}-#{$key} {
+    #{$property}: $value !important;
+  }
+  // Horizontal
+  .#{$property-shortcut}x#{if($breakpoint, "-#{$breakpoint}", "")}-#{$key} {
+    #{$property}-left: $value !important;
+    #{$property}-right: $value !important;
+  }
+  // Vertical
+  .#{$property-shortcut}y#{if($breakpoint, "-#{$breakpoint}", "")}-#{$key} {
+    #{$property}-bottom: $value !important;
+    #{$property}-top: $value !important;
+  }
+  // Direção específica
+  @each $direction, $direction-shortcut in $directions {
+    .#{$property-shortcut}#{$direction-shortcut}#{if($breakpoint, "-#{$breakpoint}", "")}-#{$key} {
+      #{$property}-#{$direction}: $value !important;
+    }
+    // Ignorar valor 0 e auto
+    @if $key != 0 and $key != "auto" {
+      .#{$property-shortcut}#{$direction-shortcut}#{if($breakpoint, "-#{$breakpoint}", "")}-n#{$key} {
+        #{$property}-#{$direction}: calc(#{$value} * -1) !important;
+      }
+    }
+  }
+  // Valores negativos tirando o zero a auto
+  @if $key != 0 and $key != "auto" {
+    .#{$property-shortcut}#{if($breakpoint, "-#{$breakpoint}", "")}-n#{$key} {
+      #{$property}: calc(#{$value} * -1) !important;
+    }
+    .#{$property-shortcut}x#{if($breakpoint, "-#{$breakpoint}", "")}-n#{$key} {
+      #{$property}-left: calc(#{$value} * -1) !important;
+      #{$property}-right: calc(#{$value} * -1) !important;
+    }
+    .#{$property-shortcut}y#{if($breakpoint, "-#{$breakpoint}", "")}-n#{$key} {
+      #{$property}-bottom: calc(#{$value} * -1) !important;
+      #{$property}-top: calc(#{$value} * -1) !important;
+    }
+  }
+}
+
+/// Aplica espaçamentos usando os mapas de espaçamentos manuais e automáticos
+/// Modos de uso:
+/// - @include make-spacing;
+/// - @include make-spacing(breakpoint);
+@mixin make-spacing($property-shortcut, $property, $breakpoint: null) {
+  @each $key, $value in $spacers-manual {
+    @include spacing-directions($property-shortcut, $property, $key, $value, $breakpoint);
+  }
+  @each $key, $value in $spacers-automatic {
+    @include spacing-directions($property-shortcut, $property, $key, $value, $breakpoint);
+  }
+  @if $property-shortcut != "p" {
+    @include spacing-directions($property-shortcut, $property, "auto", auto, $breakpoint);
+  }
+}

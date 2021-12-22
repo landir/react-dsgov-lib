@@ -1,0 +1,160 @@
+@mixin message {
+  @include message-tokens;
+  @include message-base;
+  @include message-colors;
+  @include message-darkmode;
+}
+
+@mixin feedback {
+  @include message-tokens;
+  @include feedback-base;
+  @include message-colors;
+  @include message-darkmode;
+}
+
+@mixin message-tokens {
+  --message-color: var(--color-secondary-08);
+  --message-color-rgb: var(--rgb-secondary-08);
+  --message-text: var(--text-color);
+  --message-opacity: var(--surface-opacity-xs);
+  --message-font-size: var(--font-size-scale-up-01);
+  --message-padding: var(--spacing-scale-3x) var(--spacing-scale-base)
+    var(--spacing-scale-3x) var(--spacing-scale-2x);
+  --message-margin: var(--spacing-scale-2x);
+  --message-icon: var(--icon-size-lg);
+  --feedback-padding: var(--spacing-scale-half);
+  --feedback-font-weight: var(--font-weight-medium);
+}
+
+@mixin message-base {
+  background: rgba(var(--message-color-rgb), var(--message-opacity));
+  display: flex;
+  margin-bottom: var(--message-margin);
+
+  .content {
+    color: var(--message-text);
+    flex: 1;
+    font-size: var(--message-font-size);
+    padding: var(--message-padding);
+
+    a {
+      font-weight: var(--font-weight-bold);
+      text-decoration: underline;
+    }
+
+    * {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .icon {
+    align-items: center;
+    color: var(--message-color);
+    display: flex;
+    justify-content: center;
+    padding-left: var(--spacing-scale-2x);
+    padding-right: var(--spacing-scale-2x);
+
+    + .content {
+      padding-left: 0;
+    }
+  }
+
+  .close {
+    margin-right: var(--spacing-scale-base);
+    margin-top: var(--spacing-scale-base);
+  }
+}
+
+@mixin feedback-base {
+  --message-opacity: 1;
+  background: rgba(var(--message-color-rgb), var(--message-opacity));
+  color: var(--message-text);
+  display: inline-block;
+  font-style: italic;
+  font-weight: var(--feedback-font-weight);
+  margin-bottom: 0;
+  padding: var(--feedback-padding);
+  @include icon {
+    margin-right: var(--feedback-padding);
+  }
+
+  &:not(.is-warning):not(.warning):not([warning]) {
+    --message-text: var(--color-secondary-01);
+  }
+
+  &.is-warning,
+  &.warning,
+  &[warning] {
+    @include light-mode;
+  }
+}
+
+@mixin message-colors {
+  @each $color in success, danger, info {
+    &.is-#{$color},
+    &.#{$color},
+    &[#{$color}] {
+      --message-color: var(--color-#{$color});
+      --message-color-rgb: var(--rgb-#{$color});
+
+      .close {
+        .#{$prefix}button {
+          --interactive: var(--message-color);
+          --interactive-rgb: var(--message-color-rgb);
+        }
+      }
+    }
+  }
+
+  &.is-warning,
+  &.warning,
+  &[warning] {
+    --message-color: var(--message-text);
+    --message-color-rgb: var(--rgb-warning);
+
+    .close {
+      .#{$prefix}button {
+        --interactive: var(--color-secondary-08);
+        --interactive-rgb: var(--rgb-secondary-08);
+      }
+    }
+  }
+}
+
+@mixin message-darkmode {
+  &.inverted {
+    --message-opacity: 1;
+
+    &:not(.is-warning):not(.warning):not([warning]) {
+      @include dark-mode;
+
+      .icon {
+        --message-color: var(--message-text);
+      }
+
+      .close {
+        .#{$prefix}button {
+          --interactive: var(--color-secondary-01);
+          --interactive-rgb: var(--rgb-secondary-01);
+        }
+      }
+    }
+
+    &.is-warning,
+    &.warning,
+    &[warning] {
+      @include light-mode;
+    }
+  }
+}
+
+.#{$prefix}message {
+  @include message;
+}
+
+.feedback {
+  @include feedback;
+}

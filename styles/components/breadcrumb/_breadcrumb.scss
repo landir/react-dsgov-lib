@@ -1,0 +1,136 @@
+.#{$prefix}breadcrumb {
+  display: inline-grid;
+  position: relative;
+  // Página inicial
+  .crumb-list {
+    align-items: center;
+    border: none;
+    display: flex;
+    list-style: none;
+    margin: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0;    
+    // Cada item
+    .crumb {
+      align-items: center;
+      display: flex;
+      height: v(spacing-scale-5x);
+      margin: auto 0 auto -5px;
+
+      .icon {
+        color: v(color-secondary-04);
+        font-size: v(icon-size-sm);
+
+        &.fas.fa-chevron-right {
+          margin-right: -6px;
+        }
+      }
+
+      a {
+        cursor: pointer;
+        font-size: v(font-size-scale-down-01);
+        font-weight: v(font-weight-medium);
+        max-width: 180px;
+        overflow: hidden;
+        padding: 0;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        @include hover;
+      }
+
+      &.home,
+      &.menu-mobil {
+        --focus-offset: calc(var(--spacing-scale-half) * -1);
+        align-items: center;
+        display: flex;
+        margin-left: 0;
+        margin-right: -3px;
+
+        .icon {
+          color: var(--interactive);
+          position: static;
+
+          &.fas.fa-chevron-right {
+            color: var(--color-secondary-04);
+            margin-right: -8px;
+          }
+        }
+      }
+      // Item ativo
+      &[data-active="active"] {
+        span {
+          color: v(color-secondary-08);
+          cursor: default;
+          font-size: v(font-size-scale-down-01);
+          font-weight: v(font-weight-medium);
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+  .br-card {
+    left: v(spacing-scale-9x);
+    position: absolute;
+    top: v(spacing-scale-7x);
+    width: fit-content;
+    z-index: var(--z-index-layer-1);
+
+    .front {
+      .content {
+        padding: 0;
+
+        .br-list {
+          .br-item {
+            cursor: pointer;
+
+            a {
+              display: inline-block;
+              max-width: 180px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+            @include hover;
+          }
+        }
+      }
+    }
+  }
+
+  @include media-breakpoint-down(xs) {
+    .crumb-list .menu-mobil > {
+      .icon {
+        display: none;
+      }
+    }
+
+    .br-card {
+      left: v(spacing-scale-base);
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    .br-card {
+      display: none;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    .crumb-list .crumb a {
+      display: block;
+      max-width: 180px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;            
+    }
+
+    .crumb-list .crumb.menu-mobil,
+    .crumb-list .crumb.menu-mobil + .crumb,
+    .crumb-list .crumb.home + .crumb {
+      display: flex;
+    }
+  }
+}

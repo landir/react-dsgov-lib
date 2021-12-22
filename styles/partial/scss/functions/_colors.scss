@@ -1,0 +1,12 @@
+/// Esta função retorna os valores em rgb de uma cor em hexadecimal
+/// Como usar: get-rgb(#000000);
+@function get-rgb($var) {
+  @return red($var), green($var), blue($var);
+}
+
+/// Esta função retorna os valores em hsl de uma cor em hexadecimal
+/// Como usar: get-hsl(#000000);
+@function get-hsl($var) {
+  @return hue($var), saturation($var), lightness($var);
+}
+

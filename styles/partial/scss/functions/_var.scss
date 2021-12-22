@@ -1,0 +1,10 @@
+/// Esta função retorna uma variável no formato nativo de css
+/// Como usar: v(primary); ou v(primary, $primary);
+/// Créditos: https://dev.to/meduzen/write-css-variables-faster-in-scss-1mon
+@function v($var, $fallback: null) {
+  @if ($fallback) {
+    @return var(--#{$var}, #{$fallback});
+  } @else {
+    @return var(--#{$var});
+  }
+}

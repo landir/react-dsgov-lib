@@ -1,0 +1,240 @@
+@mixin input-init {
+  @include input-tokens;
+  @include input-appearence;
+  @include input-inline;
+  @include input-icon;
+  @include input-button;
+  @include input-highlight;
+  @include input-autocomplete;
+  @include input-states;
+  @include input-densities;
+}
+
+@mixin input-tokens {
+  --input-background: var(--color-secondary-01);
+  --input-border-color: var(--color-secondary-06);
+  --input-border-width: 1px;
+  --input-border-style: solid;
+  --input-button-margin: var(--spacing-scale-half);
+  --input-icon-color: var(--color-secondary-06);
+  --input-icon-margin: var(--spacing-scale-baseh);
+  --input-color: var(--color-secondary-08);
+  --input-margin-bottom: var(--spacing-scale-base);
+  --input-margin-top: var(--spacing-scale-half);
+  --input-padding: 0 var(--spacing-scale-2x);
+  --input-padding-button: var(--spacing-scale-5x);
+  --input-padding-icon: var(--spacing-scale-5x);
+  --input-radius: var(--surface-rounder-sm);
+  --input-size: var(--input-medium);
+  --input-small: 32px;
+  --input-medium: 40px;
+  --input-large: 48px;
+  --input-highlight: 56px;
+}
+
+@mixin input-appearence {
+  color: var(--text-color);
+  position: relative;
+
+  input {
+    background: var(--input-background);
+    border: var(--input-border-width) var(--input-border-style)
+      var(--input-border-color);
+    border-radius: var(--input-radius);
+    color: var(--input-color);
+    display: block;
+    font-size: var(--font-size-scale-up-01);
+    font-weight: var(--font-weight-medium);
+    height: var(--input-size);
+    margin-bottom: var(--input-margin-bottom);
+    margin-top: var(--input-margin-top);
+    padding: var(--input-padding);
+    width: 100%;
+
+    // Sobrescrever placeholder
+    &::placeholder {
+      --text-color: var(--input-color);
+    }
+
+    // Remove ícones nativos de browsers
+    // mostrar senha IE/Edge
+    &::-ms-reveal,
+    &::-ms-clear,
+    &::-webkit-calendar-picker-indicator {
+      display: none;
+    }
+    // busca no Chrome
+    &[type="search"]::-webkit-search-decoration,
+    &[type="search"]::-webkit-search-cancel-button,
+    &[type="search"]::-webkit-search-results-button,
+    &[type="search"]::-webkit-search-results-decoration {
+      appearance: none;
+    }
+
+  }
+}
+
+@mixin input-inline {
+  &.input-inline {
+    display: flex;
+
+    .input-label {
+      margin-right: var(--spacing-scale-baseh);
+      margin-top: calc(var(--input-size) * 0.5 - var(--spacing-scale-half));
+    }
+
+    .input-content {
+      flex: 1;
+    }
+  }
+}
+
+@mixin input-icon {
+  .input-group {
+    position: relative;
+  }
+
+  .input-icon {
+    align-items: center;
+    color: var(--input-icon-color);
+    display: flex;
+    height: var(--input-size);
+    margin-left: var(--input-icon-margin);
+    position: absolute;
+
+    + input {
+      padding-left: var(--input-padding-icon);
+    }
+  }
+}
+
+@mixin input-button {
+  .#{$prefix}button {
+    --button-size: var(--button-small);
+    @include light-mode;
+    border-radius: 50%;
+    float: right;
+    margin-right: var(--input-button-margin);
+    margin-top: calc((var(--input-size) + var(--input-margin-bottom)) * -1);
+    padding: 0;
+    position: relative;
+    // Centraliza botão
+    transform: translateY(calc((var(--input-size) - var(--button-size)) * 0.5));
+    width: var(--button-size);
+  }
+
+  &.input-button {
+    input {
+      padding-right: var(--input-padding-button);
+    }
+  }
+  // Manter compatibilidade com versão 15.0.2 e anteriores
+  &.has-icon {
+    .#{$prefix}button.circle {
+      float: right;
+      margin-right: var(--spacing-scale-half);
+      margin-top: calc((var(--button-size) + var(--spacing-scale-half) + var(--input-margin-bottom)) * -1);
+      transform: translateY(0);
+    }
+
+    &.small {
+      .#{$prefix}button.circle {
+        margin-top: calc((var(--button-size) + var(--spacing-scale-base)) * -1);
+      }
+    }
+
+    &.large {
+      .#{$prefix}button.circle {
+        margin-top: calc(var(--button-size) * -1);
+      }
+    }
+  }
+}
+
+@mixin input-highlight {
+  &.input-highlight {
+    --input-background: var(--color-secondary-02);
+    --input-border-color: transparent;
+    --input-button-margin: var(--spacing-scale-2x);
+    --input-icon-margin: var(--spacing-scale-3x);
+    --input-padding: 0 var(--spacing-scale-3x);
+    --input-padding-button: var(--spacing-scale-7x);
+    --input-padding-icon: var(--spacing-scale-7x);
+    --input-size: var(--input-highlight);
+  }
+}
+
+@mixin input-autocomplete {
+  .#{$prefix}list {
+    box-shadow: var(--surface-shadow-md);
+    max-height: 530px;
+    overflow: auto;
+    position: absolute;
+    width: 100%;
+    z-index: var(--z-index-layer-2);
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--color-secondary-03);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--color-secondary-06);
+    }
+    .#{$prefix}item {
+      --item-padding-y: var(--spacing-scale-2x);
+      --interactive-rgb: var(--rgb-secondary-08);
+      @include hover;
+
+      &:not(:first-child) {
+        border-top: var(--surface-width-sm) solid var(--color-secondary-04);
+      }
+
+    }
+  }
+}
+
+@mixin input-states {
+  // Borda do input
+  @each $color in "success", "danger", "warning", "info" {
+    &.#{$color},
+    &[data-#{$color}] {
+      input {
+        border-color: var(--color-#{$color});
+        border-width: 2px;
+      }
+    }
+  }
+
+  input {
+    // Hover
+    --interactive-rgb: var(--rgb-secondary-08);
+    @include hover;
+    // Foco tênue
+    &:focus,
+    &:focus-visible,
+    &.focus-visible {
+      @include focus-soft;
+    }
+  }
+  // Componente Message (Feedback)
+  .feedback {
+    margin-bottom: var(--spacing-scale-half);
+  }
+}
+
+@mixin input-densities {
+  @each $size in small, medium, large {
+    &.#{$size},
+    &[data-#{$size}] {
+      --input-size: var(--input-#{$size});
+    }
+  }
+}
+
+.#{$prefix}input {
+  @include input-init;
+}

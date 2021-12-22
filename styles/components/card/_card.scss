@@ -1,0 +1,81 @@
+@import "../../partial/scss/base";
+
+@mixin card {
+  @include card-tokens;
+  @include card-base;
+  @include card-back;
+}
+
+@mixin card-tokens {
+  --interactive-rgb: var(--rgb-secondary-08);
+  --card-background: var(--color-secondary-01);
+  --card-back-background: var(--color-secondary-07);
+  --card-margin: var(--spacing-scale-2x);
+  --card-padding: var(--spacing-scale-2x);
+  --card-shadow: var(--surface-shadow-sm);
+}
+
+@mixin card-base {
+  background: var(--card-background);
+  box-shadow: var(--card-shadow);
+  color: var(--card-color);
+  margin-bottom: var(--card-margin);
+
+  .card-content,
+  .front .content,
+  .back .content {
+    padding: var(--card-padding);
+
+    *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .front .header,
+  .back .header,
+  .card-header {
+    padding: var(--card-padding) var(--card-padding) 0;
+  }
+
+  .front .footer,
+  .back .footer,
+  .card-footer {
+    padding: 0 var(--card-padding) var(--card-padding);
+  }
+}
+
+@mixin card-back {
+  .back {
+    background: var(--card-back-background);
+    color: var(--color-secondary-01);
+  }
+}
+
+.#{$prefix}card {
+  @include card;
+
+  &.hover {
+    @include hover;
+    cursor: pointer;
+  }
+
+  &[data-expanded] {
+    overflow: hidden;
+  }
+
+  &[data-expanded="on"] {
+    height: 100%;
+    opacity: 1;
+  }
+
+  &[data-expanded="off"] {
+    height: 0;
+    opacity: 0;
+    z-index: -1;
+  }
+  .#{$prefix}list {
+    .#{$prefix}item {
+      white-space: normal;
+    }
+  }
+}

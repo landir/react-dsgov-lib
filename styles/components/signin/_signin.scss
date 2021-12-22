@@ -1,0 +1,8 @@
+.#{$prefix}button {
+  @include button;
+
+  &.sign-in {
+    --button-background: var(--color-secondary-02);
+    z-index: var(--z-index-layer-0);
+  }
+}

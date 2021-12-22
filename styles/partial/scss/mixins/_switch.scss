@@ -1,0 +1,264 @@
+@mixin switch {
+  @include switch-tokens;
+  @include switch-default;
+  @include switch-directions;
+  @include switch-sizes;
+  @include switch-data-choice;
+  @include switch-icons;
+  @include switch-status;
+}
+
+@mixin switch-tokens {
+  --switch-background: var(--color-secondary-01);
+  --switch-border: var(--color-secondary-04);
+  --switch-radius: 100em;
+  --switch-padding: 16px;
+  --switch-height: var(--switch-height-medium);
+  --switch-width: var(--switch-width-medium);
+  --switch-toggle-bg: var(--switch-off);
+  --switch-toggle-size: var(--switch-toggle-medium);
+  --switch-icon-size: var(--switch-icon-medium);
+  --switch-on: var(--on);
+  --switch-off: var(--color-secondary-04);
+  --switch-height-small: 24px;
+  --switch-height-medium: 30px;
+  --switch-height-large: 36px;
+  --switch-width-small: 40px;
+  --switch-width-medium: 52px;
+  --switch-width-large: 64px;
+  --switch-toggle-small: 16px;
+  --switch-toggle-medium: 22px;
+  --switch-toggle-large: 28px;
+  --switch-icon-small: var(--icon-size-xs);
+  --switch-icon-medium: var(--icon-size-sm);
+  --switch-icon-large: var(--icon-size-base);
+}
+
+@mixin switch-default {
+  display: inline-flex;
+  min-height: var(--switch-height);
+
+  input {
+    appearance: none;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 0;
+
+    + label {
+      align-items: center;
+      color: var(--color-secondary-08);
+      cursor: pointer;
+      display: inline-flex;
+      font-size: var(--font-size-scale-base);
+      margin-bottom: 0;
+      position: relative;
+
+      &::before {
+        background: var(--switch-background);
+        border: 1px solid var(--switch-border);
+        border-radius: var(--switch-radius);
+        content: "";
+        height: var(--switch-height);
+        position: absolute;
+        width: var(--switch-width);
+      }
+
+      &::after {
+        background: var(--switch-toggle-bg);
+        border-radius: 50%;
+        content: "";
+        height: var(--switch-toggle-size);
+        position: absolute;
+        transition: all 0.3s ease-in-out;
+        width: var(--switch-toggle-size);
+      }
+    }
+
+    &:checked + label {
+      &::after {
+        --switch-toggle-bg: var(--switch-on);
+      }
+    }
+  }
+}
+
+@mixin switch-directions {
+  input {
+    + label {
+      padding-right: calc(var(--switch-padding) + var(--switch-width));
+
+      &:empty {
+        padding-right: var(--switch-width);
+      }
+
+      &::before {
+        right: 0;
+      }
+
+      &::after {
+        right: calc(4px + var(--switch-toggle-size));
+      }
+    }
+
+    &:checked + label {
+      &::after {
+        right: 4px;
+      }
+    }
+  }
+  /* stylelint-disable no-descending-specificity */
+  &.right {
+    input {
+      + label {
+        padding-left: calc(var(--switch-width) + var(--switch-padding));
+        padding-right: 0;
+
+        &::before {
+          left: 0;
+        }
+
+        &::after {
+          left: 4px;
+        }
+      }
+
+      &:checked + label {
+        &::after {
+          left: calc(var(--switch-width) - var(--switch-toggle-size) - 4px);
+        }
+      }
+    }
+  }
+
+  &.top {
+    min-height: calc(var(--switch-height) * 2);
+
+    input {
+      + label {
+        align-items: flex-start;
+        padding-right: 0;
+
+        &::before {
+          bottom: 0;
+          left: 0;
+        }
+
+        &::after {
+          bottom: 4px;
+          left: 4px;
+        }
+      }
+
+      &:checked + label {
+        &::after {
+          left: calc(var(--switch-width) - var(--switch-toggle-size) - 4px);
+        }
+      }
+    }
+  }
+  /* stylelint-enable no-descending-specificity */
+}
+
+@mixin switch-sizes {
+  @each $size in "small", "medium", "large" {
+    &.#{$size} {
+      --switch-height: var(--switch-height-#{$size});
+      --switch-width: var(--switch-width-#{$size});
+      --switch-toggle-size: var(--switch-toggle-#{$size});
+      --switch-icon-size: var(--switch-icon-#{$size});
+    }
+  }
+}
+
+@mixin switch-data-choice {
+  input {
+    ~ .switch-data {
+      align-self: center;
+      color: var(--color-secondary-08);
+      font-size: var(--font-size-scale-base);
+      font-weight: var(--font-weight-regular);
+      margin-left: 8px;
+
+      &::before {
+        content: attr(data-disabled);
+      }
+    }
+
+    &:checked ~ .switch-data {
+      color: var(--color-secondary-08);
+
+      &::before {
+        content: attr(data-enabled);
+      }
+    }
+  }
+}
+
+@mixin switch-icons {
+  &.icon {
+    input {
+      + label {
+        &::after {
+          align-items: center;
+          color: var(--color-secondary-01);
+          content: "\f00d";
+          display: inline-flex;
+          font-family: "Font Awesome 5 Free", sans-serif;
+          font-size: var(--switch-icon-size);
+          font-weight: var(--font-weight-black);
+          justify-content: center;
+        }
+      }
+
+      &:checked + label {
+        &::after {
+          content: "\f00c";
+        }
+      }
+    }
+  }
+}
+
+@mixin switch-status {
+  // Focus
+  input:focus-visible + label,
+  input.focus-visible + label {
+    &::before {
+      @include focus-soft;
+    }
+  }
+
+  input:disabled + label {
+    @include disabled;
+  }
+
+  input:hover:not([disabled]):checked + label {
+    &::before {
+      background-image: linear-gradient(rgba(v(rgb-primary-lighten-02), var(--hover)),
+      rgba(v(rgb-primary-lighten-02), var(--hover)));
+    }
+  }
+
+  input:hover:not([disabled]):not(:checked) + label {
+    &::before {
+      background-image: linear-gradient(rgba(v(rgb-secondary-04), var(--hover)),
+      rgba(v(rgb-secondary-04), var(--hover)));
+    }
+  }
+
+  input:active:not([disabled]):checked + label {
+    &::before {
+      background-image: linear-gradient(rgba(v(rgb-primary-lighten-02), var(--pressed)),
+      rgba(v(rgb-primary-lighten-02), var(--pressed)));
+    }
+  }
+
+  input:active:not([disabled]):not(:checked) + label {
+    &::before {
+      background-image: linear-gradient(rgba(v(rgb-secondary-04), var(--pressed)),
+      rgba(v(rgb-secondary-04), var(--pressed)));
+    }
+  }
+}

@@ -1,0 +1,108 @@
+// Dependência para calcular divisão
+@use "sass:math";
+
+// Função para retornar próximo breakpoint
+@function next-breakpoint($breakpoint) {
+  @if $breakpoint == "xs" {
+    @return "sm";
+  }
+  @if $breakpoint == "sm" {
+    @return "md";
+  }
+  @if $breakpoint == "md" {
+    @return "lg";
+  }
+  @if $breakpoint == "lg" {
+    @return "xl";
+  }
+}
+
+/// Aplica estilos no breakpoint informado para cima
+/// Modo de uso: @include media-breakpoint-up(sm) {}
+@mixin media-breakpoint-up($breakpoint) {
+  $size: map-get($breakpoints, $breakpoint);
+  @media (min-width: $size) {
+    @content;
+  }
+}
+
+/// Aplica estilos no breakpoint informado para baixo
+/// Modo de uso: @include media-breakpoint-down(sm) {}
+@mixin media-breakpoint-down($breakpoint) {
+  $value: map-get($breakpoints, next-breakpoint($breakpoint)) - 1px;
+  @media (max-width: $value) {
+    @content;
+  }
+}
+
+/// Cria as colunas de acordo com número de colunas informado.
+/// As colunas terão breakpoint caso seja ele seja informado.
+/// Modo de uso: @include columns(4); ou @include columns(8, "sm");
+@mixin columns($columns, $breakpoint: null) {
+  .col#{if($breakpoint, "-#{$breakpoint}", "")} {
+    flex: 1 0 0%;
+    min-width: math.div(1, $columns) * 100%;
+  }
+  .col#{if($breakpoint, "-#{$breakpoint}", "")}-auto {
+    flex: 0 0 auto;
+    width: auto;
+  }
+  @for $i from 1 through $columns {
+    .col#{if($breakpoint, "-#{$breakpoint}", "")}-#{$i} {
+      flex-basis: math.div($i, $columns) * 100%;
+      max-width: math.div($i, $columns) * 100%;
+    }
+  }
+}
+
+/// Cria os containers responsivos para a Grid.
+/// A versão fluida sempre terá largura de 100%.
+/// As versões fixas recebem limite de largura de acordo com o breakpoint.
+/// Modo de uso: @include grid-breakpoint("576px", "sm", "tablet");
+@mixin grid-breakpoint($var, $breakpoint, $name) {
+  @media (min-width: $var) {
+    .container,
+    .container-sm,
+    .container-md,
+    .container-lg,
+    .container-xl,
+    .container-fluid {
+      --grid-margin: var(--grid-#{$name}-margin);
+    }
+
+    .row {
+      --grid-gutter: var(--grid-#{$name}-gutter);
+    }
+    @if $breakpoint == "sm" {
+      .container,
+      .container-sm {
+        --grid-maxwidth: calc(var(--grid-breakpoint-#{$breakpoint}) - var(--grid-#{$name}-margin));
+      }
+    }
+    @if $breakpoint == "md" {
+      .container,
+      .container-sm,
+      .container-md {
+        --grid-maxwidth: calc(var(--grid-breakpoint-#{$breakpoint}) - var(--grid-#{$name}-margin));
+      }
+    }
+    @if $breakpoint == "lg" {
+      .container,
+      .container-sm,
+      .container-md,
+      .container-lg {
+        --grid-maxwidth: calc(var(--grid-breakpoint-#{$breakpoint}) - var(--grid-#{$name}-margin));
+      }
+    }
+    @if $breakpoint == "xl" {
+      .container,
+      .container-sm,
+      .container-md,
+      .container-lg,
+      .container-xl {
+        --grid-maxwidth: calc(var(--grid-breakpoint-#{$breakpoint}) - var(--grid-#{$name}-margin));
+      }
+    }
+    @include columns($grid-desktop-columns, $breakpoint);
+  }
+}

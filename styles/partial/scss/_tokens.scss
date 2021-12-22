@@ -1,0 +1,154 @@
+:root {
+  // Novas cores
+  @include family-blue;
+  @include family-cyan;
+  @include family-gold;
+  @include family-gray;
+  @include family-green;
+  @include family-indigo;
+  @include family-magenta;
+  @include family-mint;
+  @include family-orange;
+  @include family-pure;
+  @include family-red;
+  @include family-violet;
+  @include family-yellow;
+  // Superfície
+  --background: var(--pure-0);
+  --background-alternative: var(--gray-2);
+  --background-dark: var(--blue-warm-vivid-90);
+  --background-rgb: var(--pure-0-rgb);
+  --background-alternative-rgb: var(--gray-2-rgb);
+  --background-dark-rgb: var(--blue-warm-vivid-90-rgb);
+  --background-hsl: var(--pure-0-hsl);
+  --background-alternative-hsl: var(--gray-2-hsl);
+  --background-dark-hsl: var(--blue-warm-vivid-90-hsl);
+  // Leitura
+  --color: var(--gray-80);
+  --color-light: var(--color);
+  --color-dark: var(--pure-0);
+  --color-rgb: var(--gray-80-rgb);
+  --color-light-rgb: var(--color-rgb);
+  --color-dark-rgb: var(--pure-0-rgb);
+  --color-hsl: var(--gray-80-hsl);
+  --color-light-hsl: var(--color-hsl);
+  --color-dark-hsl: var(--pure-0-hsl);
+  // Interativa
+  --interactive: var(--blue-warm-vivid-70);
+  --interactive-light: var(--interactive);
+  --interactive-dark: var(--blue-warm-20);
+  --interactive-rgb: var(--blue-warm-vivid-70-rgb);
+  --interactive-light-rgb: var(--interactive-rgb);
+  --interactive-dark-rgb: var(--blue-warm-20-rgb);
+  --interactive-hsl: var(--blue-warm-vivid-70-hsl);
+  --interactive-light-hsl: var(--interactive-hsl);
+  --interactive-dark-hsl: var(--blue-warm-20-hsl);
+  // Feedback Informação
+  --info: var(--blue-warm-vivid-60);
+  --info-alternative: var(--blue-warm-vivid-10);
+  --info-rgb: var(--blue-warm-vivid-60-rgb);
+  --info-alternative-rgb: var(--blue-warm-vivid-10-rgb);
+  --info-hsl: var(--blue-warm-vivid-60-hsl);
+  --info-alternative-hsl: var(--blue-warm-vivid-10-hsl);
+  // Feedback Sucesso
+  --success: var(--green-cool-vivid-50);
+  --success-alternative: var(--green-cool-vivid-5);
+  --success-rgb: var(--green-cool-vivid-50-rgb);
+  --success-alternative-rgb: var(--green-cool-vivid-5-rgb);
+  --success-hsl: var(--green-cool-vivid-50-hsl);
+  --success-alternative-hsl: var(--green-cool-vivid-5-hsl);
+  // Feedback Alerta
+  --warning: var(--yellow-vivid-20);
+  --warning-alternative: var(--yellow-vivid-5);
+  --warning-rgb: var(--yellow-vivid-20-rgb);
+  --warning-alternative-rgb: var(--yellow-vivid-5-rgb);
+  --warning-hsl: var(--yellow-vivid-20-hsl);
+  --warning-alternative-hsl: var(--yellow-vivid-5-hsl);
+  // Feedback Erro
+  --danger: var(--red-vivid-50);
+  --danger-alternative: var(--red-vivid-20);
+  --danger-rgb: var(--red-vivid-50-rgb);
+  --danger-alternative-rgb: var(--red-vivid-20-rgb);
+  --danger-hsl: var(--red-vivid-50-hsl);
+  --danger-alternative-hsl: var(--red-vivid-20-hsl);
+  // Fonte Family
+  --font-family-base: #{$font-family-base};
+  --surface-overlay-scrim: #{$overlay-scrim};
+  --surface-overlay-text: #{$overlay-text};
+  // Estados
+  --visited: var(--color-primary-darken-01);
+  --disabled: var(--surface-opacity-md);
+  --hover: var(--surface-opacity-xs);
+  --hover-effect: linear-gradient(rgba(var(--interactive-rgb), var(--hover)), rgba(var(--interactive-rgb), var(--hover)));
+  --pressed: var(--surface-opacity-md);
+  --pressed-effect: linear-gradient(rgba(var(--interactive-rgb), var(--pressed)), rgba(var(--interactive-rgb), var(--pressed)));
+  --focus-style: dashed;
+  --focus-color: var(--gold-vivid-40);
+  --focus: var(--gold-vivid-40);
+  --focus-offset: var(--spacing-scale-half);
+  --focus-width: var(--surface-width-lg);
+  --active: var(--color-primary-darken-01);
+  --selected: var(--color-primary-lighten-01);
+  --on: var(--color-primary-lighten-02);
+  --off: var(--color-secondary-06);
+  --ondrag-border-color: var(--interactive);
+  --ondrag-border-width: var(--surface-width-md);
+  --ondrag-border-style: solid;
+  --ondrag-shadow-offset-x: var(--surface-offset-none);
+  --ondrag-shadow-offset-y: var(--surface-offset-md);
+  --ondrag-shadow-blur: var(--surface-blur-lg);
+  --ondrag-shadow-color: var(--interactive-rgb);
+  --ondrag-shadow-opacity: var(--surface-opacity-sm);
+  --ondrag-opacity: var(--surface-opacity-xl);
+  --ondrag-rotate: -5deg;
+  --ondrag-cursor: grabbing;
+  --draggable-icon: grip-vertical;
+  --draggable-cursor: grab;
+  --dropzone-border-color: var(--interactive);
+  --dropzone-border-width: var(--surface-width-sm);
+  --dropzone-border-style: dashed;
+  --ondrop-background: var(--interactive-rgb);
+  --ondrop-opacity: var(--surface-opacity-sm);
+  --ondrop-cursor: copy;
+  // Camadas
+  --z-index-layer-0: 0;
+  --z-index-layer-1: 1000;
+  --z-index-layer-2: 2000;
+  --z-index-layer-3: 3000;
+  --z-index-layer-4: 4000;
+  // Cor hexadecimal
+  @include tokens($br-colors, "color-");
+  // Iconografia
+  @include tokens($tokens-icons);
+  // Superfície
+  @include tokens($widths, "surface-");
+  @include tokens($rounders, "surface-");
+  @include tokens($opacities, "surface-");
+  @include tokens($borders, "surface-");
+  @include tokens($blurs, "surface-");
+  @include tokens($offsets, "surface-");
+  @include tokens($shadows, "surface-");
+
+  // Movimento
+  @include tokens($easings, "animation-");
+  @include tokens($durations, "duration-");
+
+  // Tipografia
+  @include tokens($tokens-font-weight);
+  @include tokens($text-font-size, "font-size-scale-");
+  @include tokens($tokens-line-height);
+  // Grid
+  @include tokens($tokens-breakpoints);
+  @include tokens($tokens-portrait);
+  @include tokens($tokens-tablet);
+  @include tokens($tokens-desktop);
+  @include tokens($tokens-tv);
+  // Alinhamento
+  @include tokens($tokens-alinhamento);
+  // Espaçamento
+  @include tokens($tokens-spacing);
+  // Cor rgb
+  @each $key, $value in $br-colors {
+    --rgb-#{$key}: #{get-rgb($value)};
+  }
+}

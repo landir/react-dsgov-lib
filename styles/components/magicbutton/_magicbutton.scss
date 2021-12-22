@@ -1,0 +1,57 @@
+@mixin magic {
+  @include magic-tokens;
+  @include magic-base;
+  @include magic-button;
+  @include magic-sizes;
+}
+
+@mixin magic-tokens {
+  --magic-background: var(--color-highlight);
+  --magic-rgb: var(--rgb-secondary-01);
+  --magic-color: var(--color-secondary-01);
+  --magic-border: var(--color-secondary-03);
+  --magic-font-size: var(--font-size-scale-up-02);
+  --magic-shadow: var(--surface-shadow-md);
+  --magic-size: var(--magic-medium);
+  --magic-small: var(--spacing-scale-4xh);
+  --magic-medium: var(--spacing-scale-5xh);
+  --magic-large: var(--spacing-scale-6xh);
+  --magic-support-size: var(--magic-support-medium);
+  --magic-support-small: var(--spacing-scale-7x);
+  --magic-support-medium: var(--spacing-scale-8x);
+  --magic-support-large: var(--spacing-scale-9x);
+  --magic-z-index: var(--z-index-layer-1);
+}
+
+@mixin magic-base {
+  display: inline-flex;
+  position: relative;
+}
+
+@mixin magic-button {
+  .#{$prefix}button {
+    --interactive-rgb: var(--magic-rgb);
+    --button-background: var(--magic-background);
+    --button-color: var(--magic-color);
+    --button-border: var(--magic-border);
+    --button-font-size: var(--magic-font-size);
+    --button-size: var(--magic-support-size);
+    border: var(--magic-border) solid
+      calc((var(--magic-support-size) - var(--magic-size)) * 0.5);
+    box-shadow: var(--magic-shadow);
+    z-index: var(--magic-z-index);
+  }
+}
+
+@mixin magic-sizes {
+  @each $size in small, medium, large {
+    &.#{$size} {
+      --magic-size: var(--magic-#{$size});
+      --magic-support-size: var(--magic-support-#{$size});
+    }
+  }
+}
+
+.#{$prefix}magic-button {
+  @include magic;
+}

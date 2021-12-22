@@ -1,0 +1,83 @@
+@mixin skip-links {
+  @include skip-links-tokens;
+  @include skip-links-base;
+  @include skip-links-item;
+  @include skip-links-accesskey;
+  @include skip-links-states;
+}
+
+@mixin skip-links-tokens {
+  --skip-link-background: var(--color-secondary-01);
+  --skip-link-color: var(--color-primary-default);
+  --skip-link-height: 40px;
+  --skip-link-padding: var(--spacing-scale-2x);
+  --skip-link-shadow: var(--surface-shadow-lg);
+  --skip-link-z-index: var(--z-index-layer-4);
+}
+
+@mixin skip-links-base {
+  --focus-offset: calc(var(--spacing-scale-half) * -1);
+  background: var(--skip-link-background);
+  box-shadow: var(--skip-link-shadow);
+  display: none;
+  left: 50%;
+  position: fixed;
+  top: calc(var(--skip-link-height) * -2);
+  transform: translate(-50%, 0);
+  transition: top 0.1s ease-out 0ms;
+  z-index: calc(var(--skip-link-z-index) + 100);
+  @include media-breakpoint-up(sm) {
+    display: flex;
+  }
+}
+
+@mixin skip-links-item {
+  a {
+    align-items: center;
+    background: var(--skip-link-background);
+    color: var(--skip-link-color);
+    display: flex;
+    height: var(--skip-link-height);
+    padding: 0 var(--skip-link-padding);
+    position: relative;
+    white-space: nowrap;
+  }
+}
+
+@mixin skip-links-accesskey {
+  .accesskey {
+    --skip-link-height: 25px;
+    align-items: center;
+    background: var(--skip-link-color);
+    border-radius: 50%;
+    color: var(--skip-link-background);
+    display: inline-flex;
+    height: var(--skip-link-height);
+    justify-content: center;
+    margin-left: var(--spacing-scale-base);
+    width: var(--skip-link-height);
+  }
+}
+
+@mixin skip-links-states {
+  a {
+    &:focus {
+      background: var(--status-focused-background)
+        linear-gradient(var(--status-focused-overlay),
+        var(--status-focused-overlay));
+    }
+
+    &:hover {
+      background: var(--status-hover-background);
+    }
+  }
+
+  &[focus-within],
+  &:focus-within {
+    top: 0;
+  }
+}
+
+.skip-links {
+  @include skip-links;
+}

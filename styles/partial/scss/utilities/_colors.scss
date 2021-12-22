@@ -1,0 +1,36 @@
+// Cria classes de cores
+@each $color in
+  $color-blue, $color-blue-cool, $color-blue-warm,
+  $color-blue-vivid, $color-blue-cool-vivid, $color-blue-warm-vivid,
+  $color-cyan, $color-cyan-vivid, $color-gold, $color-gold-vivid, $color-gray,
+  $color-gray-cool, $color-gray-warm, $color-green, $color-green-cool,
+  $color-green-warm, $color-green-vivid, $color-green-cool-vivid,
+  $color-green-warm-vivid, $color-indigo, $color-indigo-cool,
+  $color-indigo-warm, $color-indigo-vivid, $color-indigo-cool-vivid,
+  $color-indigo-warm-vivid, $color-magenta, $color-magenta-vivid, $color-mint,
+  $color-mint-cool, $color-mint-vivid, $color-mint-cool-vivid, $color-orange,
+  $color-orange-warm, $color-orange-vivid, $color-orange-warm-vivid,
+  $color-pure, $color-red, $color-red-cool, $color-red-warm, $color-red-vivid,
+  $color-red-cool-vivid, $color-red-warm-vivid, $color-violet,
+  $color-violet-warm, $color-violet-vivid, $color-violet-warm-vivid,
+  $color-yellow, $color-yellow-vivid {
+  @each $key, $value in $color {
+    @include make-bg-color($key, $value);
+    @include make-text-color($key, $value);
+    @include make-border-color($key, $value);
+  }
+}
+
+// Cria classes de cores para estados
+@each $key, $value in $states-colors {
+  @include make-bg-color($key, $value);
+  @include make-text-color($key, $value);
+  @include make-border-color($key, $value);
+}
+
+// Compatibilidade com versões anteriores do dsgov
+@each $item, $value in $br-colors {
+  @include bg-colors($item, $value);
+  @include text-colors($item, $value);
+  @include border-colors($item, $value);
+}

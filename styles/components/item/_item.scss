@@ -1,0 +1,186 @@
+@mixin item-component {
+  @include item-tokens;
+  @include item-base;
+  @include item-checkbox;
+  @include item-colors;
+  @include item-states;
+}
+
+@mixin item-tokens {
+  --item-background: var(--bg-color);
+  --item-color: var(--text-color);
+  --item-font-weight: var(--font-weight);
+  --item-padding-x: var(--spacing-scale-2x);
+  --item-padding-y: var(--spacing-scale-base);
+  --item-padding: var(--item-padding-y) var(--item-padding-x);
+}
+
+@mixin item-base {
+  background: var(--item-background);
+  border: 0;
+  color: var(--item-color);
+  display: block;
+  font-weight: var(--item-font-weight);
+  padding: var(--item-padding);
+  text-align: left;
+  width: 100%;
+  // Regras para Grid interna
+  .row {
+    margin-left: calc(-1 * var(--spacing-scale-base));
+    margin-right: calc(-1 * var(--spacing-scale-base));
+
+    .col,
+    [class*="col-"] {
+      padding-left: v(spacing-scale-base);
+      padding-right: v(spacing-scale-base);
+    }
+  }
+  // Fix para floats internos
+  &::after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+}
+
+@mixin item-checkbox {
+  .#{$prefix}checkbox,
+  .#{$prefix}radio {
+    margin-bottom: calc(var(--item-padding-y) * -1);
+    margin-left: calc(var(--item-padding-x) * -1);
+    margin-right: calc(var(--item-padding-x) * -1);
+    margin-top: calc(var(--item-padding-y) * -1);
+
+    input {
+      + label {
+        padding-bottom: var(--item-padding-y);
+        padding-top: var(--item-padding-y);
+        top: 1px;
+
+        &::before {
+          left: var(--item-padding-x);
+          top: calc(var(--item-padding-y) - 1px);
+        }
+
+        &:empty {
+          left: 0;
+          top: 1px;
+        }
+      }
+
+      &:hover:not(:disabled) {
+        + label::before {
+          background-image: none;
+        }
+      }
+    }
+  }
+  .#{$prefix}checkbox {
+    input {
+      + label {
+        min-height: calc(var(--checkbox-size) + var(--item-padding-y) * 2);
+        padding-left: calc(var(--checkbox-padding) + var(--checkbox-size) + var(--item-padding-x));
+        
+        &::after {
+          left: calc(var(--item-padding-x) + 8px);
+          top: calc(var(--item-padding-y) + 4px);
+        }
+
+        &:empty {
+          min-height: var(--checkbox-size);
+
+          &::after {
+            left: 8px;
+            top: 4px;
+          }
+        }
+      }
+    }
+  }
+  .#{$prefix}radio {
+    input {
+      + label {
+        min-height: calc(var(--radio-size) + var(--item-padding-y) * 2);
+        padding-left: calc(var(--radio-padding) + var(--radio-size) + var(--item-padding-x));
+
+        &::after {
+          left: calc(var(--item-padding-x) + var(--radio-bullet-position));
+          top: calc(var(--item-padding-y) + var(--radio-bullet-position) - 1px);
+        }
+
+        &:empty {
+          min-height: var(--radio-size);
+
+          &::after {
+            left: var(--radio-bullet-position);
+            top: var(--radio-bullet-position);
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin item-colors {
+  @each $key in map-keys($br-colors) {
+    &.#{$key} {
+      @include colorize($key);
+    }
+  }
+}
+
+@mixin item-states {
+  // Selecionado
+  &.selected {
+    --bg-color: var(--selected);
+    @include dark-mode;
+  }
+  // Ativo
+  &.active {
+    @include active;
+  }
+}
+
+.#{$prefix}item {
+  --interactive-rgb: var(--rgb-secondary-08);
+  @include item-component;
+  @include focus;
+  .#{$prefix}radio,
+  .#{$prefix}checkbox {
+    input[type]:focus:checked,
+    input[type]:focus {
+      + label::before {
+        outline: none;
+      }
+    }
+
+    label {
+      width: 100%;
+    }
+  }
+}
+
+// Item aplicado em link/botão
+a.#{$prefix}item,
+button.#{$prefix}item {
+  --interactive-rgb: var(--rgb-primary-default);
+  --item-color: var(--interactive);
+  --focus-offset: calc(var(--spacing-scale-half) * -1);
+  @include hover;
+}
+
+.#{$prefix}item[data-toggle] {
+  --interactive-rgb: var(--rgb-primary-default);
+  --focus-offset: calc(var(--spacing-scale-half) * -1);
+
+  .content {
+    i {
+      color: var(--interactive);
+    }
+  }
+  @include hover;
+}
+
+.#{$prefix}divider:first-child {
+  border-top: none;
+}

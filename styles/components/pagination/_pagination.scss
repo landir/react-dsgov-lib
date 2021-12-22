@@ -1,0 +1,225 @@
+@mixin pagination {
+  @include pagination-tokens;
+  @include pagination-base;
+  @include pagination-page;
+  @include pagination-sizes;
+  @include pagination-ellipsis;
+  @include pagination-arrows;
+  @include pagination-go-to-page;
+  @include pagination-per-page;
+  @include pagination-information;
+  @include pagination-darkmode;
+}
+
+@mixin pagination-tokens {
+  --pagination-background: var(--bg-color);
+  --pagination-margin: var(--spacing-scale-base);
+  --pagination-select-width: 88px;
+  --pagination-size: var(--pagination-medium);
+  --pagination-small: 24px;
+  --pagination-medium: 32px;
+  --pagination-large: 40px;
+  --pagination-z-index: var(--z-index-layer-0);
+}
+
+@mixin pagination-base {
+  color: var(--text-color);
+  display: flex;
+  flex-wrap: wrap;
+  font-weight: var(--font-weight);
+  justify-content: center;
+  z-index: var(--pagination-z-index);
+
+  ul {
+    align-items: center;
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    padding: 0;
+  }
+  // Alinhamento do botão select
+  .#{$prefix}select {
+    .#{$prefix}input {
+      .#{$prefix}button {
+        bottom: auto;
+        margin-top: 0;
+        position: absolute;
+        right: var(--spacing-scale-half);
+        top: auto;
+        transform: none;
+      }
+    }
+  }
+  // Direção do divider
+  .#{$prefix}divider {
+    border-right-width: var(--divider-size);
+    border-top: 0;
+  }
+}
+
+@mixin pagination-page {
+  .page {
+    @include hover;
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: 100em;
+    color: var(--interactive);
+    display: inline-flex;
+    font-weight: var(--font-weight);
+    justify-content: center;
+    margin: 0 calc(var(--pagination-margin) * 0.5);
+    min-height: var(--pagination-size);
+    min-width: var(--pagination-size);
+    padding: 0 var(--spacing-scale-base);
+    white-space: nowrap;
+
+    &.active {
+      --font-weight: var(--font-weight-bold);
+      --hover: var(--surface-opacity-sm, 0.3);
+      --interactive-rgb: var(--rgb-secondary-01);
+      background: var(--active);
+      color: var(--pagination-background);
+    }
+  }
+
+  [data-previous-page],
+  [data-next-page] {
+    margin: 0 calc(var(--pagination-margin) * 0.5);
+  }
+
+  &.inverted {
+    .page {
+      &.active {
+        --interactive-rgb: var(--rgb-primary-darken-01);
+      }
+    }
+  }
+}
+
+@mixin pagination-sizes {
+  @each $size in small, medium, large {
+    &.#{$size} {
+      --pagination-size: var(--pagination-#{$size});
+    }
+  }
+}
+
+@mixin pagination-select {
+  align-items: center;
+  display: flex;
+  .#{$prefix}input {
+    align-items: center;
+    display: flex;
+
+    label {
+      font-weight: var(--font-weight);
+      margin-right: var(--spacing-scale-base);
+      padding-bottom: 0;
+    }
+
+    input {
+      --input-size: var(--pagination-medium);
+      padding-left: var(--spacing-scale-base);
+      padding-right: calc(var(--spacing-scale-baseh) + 32px);
+      text-align: right;
+      width: var(--pagination-select-width);
+
+      &:not(:focus) {
+        border-color: transparent;
+      }
+    }
+  }
+  .#{$prefix}list {
+    min-width: 5em;
+    right: 0;
+    width: auto;
+  }
+  .#{$prefix}item {
+    @include hover;
+  }
+  .#{$prefix}radio {
+    input[type="radio"] + label {
+      padding-right: calc(var(--item-padding) + var(--pagination-medium));
+    }
+  }
+}
+
+@mixin pagination-ellipsis {
+  .pagination-ellipsis {
+    margin: 0 calc(var(--pagination-margin) * 0.5);
+    position: relative;
+    .#{$prefix}button {
+      --button-size: var(--pagination-size);
+    }
+    .#{$prefix}list {
+      background: var(--pagination-background);
+      max-height: 150px;
+      min-width: 4em;
+      overflow-y: auto;
+      z-index: var(--z-index-layer-0);
+
+      &:not([hidden]) {
+        display: block;
+      }
+    }
+  }
+}
+
+@mixin pagination-arrows {
+  .pagination-arrows {
+    align-items: center;
+    display: flex;
+  }
+}
+
+@mixin pagination-go-to-page {
+  .pagination-go-to-page {
+    @include pagination-select;
+  }
+}
+
+@mixin pagination-per-page {
+  .pagination-per-page {
+    @include pagination-select;
+  }
+}
+
+@mixin pagination-information {
+  .pagination-information {
+    align-items: center;
+    display: flex;
+  }
+}
+
+@mixin pagination-darkmode {
+  &.inverted {
+    @include dark-mode;
+    --bg-color: var(--color-primary-darken-01);
+    .#{$prefix}item {
+      --interactive-rgb: var(--rgb-secondary-01);
+    }
+    .#{$prefix}button {
+      --interactive-rgb: var(--rgb-secondary-01);
+    }
+    // TODO: mover essa regra para o Componente Input criando uma versão "inverted"
+    .#{$prefix}input {
+      input {
+        --interactive-rgb: var(--rgb-secondary-01);
+      }
+    }
+    // TODO: mover essa regra para o Componente Select criando uma versão "inverted"
+    .#{$prefix}select {
+      .#{$prefix}item {
+        --interactive-rgb: var(--rgb-secondary-01);
+      }
+    }
+  }
+}
+
+.#{$prefix}pagination {
+  @include pagination;
+}

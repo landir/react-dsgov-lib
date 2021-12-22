@@ -1,0 +1,93 @@
+@mixin avatar {
+  @include avatar-tokens;
+  @include avatar-base;
+  @include avatar-sizes;
+  @include avatar-change;
+}
+
+@mixin avatar-tokens {
+  --avatar-background: var(--color-primary-pastel-02);
+  --avatar-color: var(--color-primary-pastel-01);
+  --avatar-size: var(--avatar-small);
+  --avatar-font-weight: var(--font-weight-bold);
+  --avatar-icon-size: var(--avatar-icon-small);
+  --avatar-text-size: var(--avatar-text-small);
+  --avatar-small: 40px;
+  --avatar-medium: 100px;
+  --avatar-large: 160px;
+  --avatar-icon-small: var(--icon-size-2x);
+  --avatar-icon-medium: var(--icon-size-5x);
+  --avatar-icon-large: var(--icon-size-8x);
+  --avatar-text-small: var(--font-size-scale-up-03);
+  --avatar-text-medium: var(--font-size-scale-up-07);
+  --avatar-text-large: var(--font-size-scale-up-11);
+}
+
+@mixin avatar-base {
+  display: inline-block;
+  height: var(--avatar-size);
+  vertical-align: middle;
+
+  .image {
+    background-color: var(--avatar-background);
+    border-radius: 50%;
+    color: var(--avatar-color);
+    display: inline-block;
+    font-size: var(--avatar-text-size);
+    font-weight: var(--avatar-font-weight);
+    height: var(--avatar-size);
+    overflow: hidden;
+    text-align: center;
+    width: var(--avatar-size);
+
+    img {
+      height: var(--avatar-size);
+      vertical-align: baseline;
+      width: var(--avatar-size);
+    }
+    @include icon {
+      --icon-size: var(--avatar-icon-size);
+      margin-top: 0.25em;
+    }
+
+    &.letter {
+      padding-bottom: var(--spacing-scale-base);
+    }
+  }
+
+}
+
+@mixin avatar-sizes {
+  @each $size in small, medium, large {
+    &.is-#{$size},
+    &.#{$size},
+    &[#{$size}] {
+      --avatar-size: var(--avatar-#{$size});
+      --avatar-icon-size: var(--avatar-icon-#{$size});
+      --avatar-text-size: var(--avatar-text-#{$size});
+      @if ($size == "medium") {
+        .image.letter {
+          padding-bottom: var(--spacing-scale-2x);
+        }
+      }
+      @if ($size == "large") {
+        .image.letter {
+          padding-bottom: var(--spacing-scale-4x);
+        }
+      }
+    }
+  }
+}
+
+@mixin avatar-change {
+  &-action {
+    background: transparent;
+    border: 0;
+    @include hover;
+    @include focus;
+  }
+}
+
+.#{$prefix}avatar {
+  @include avatar;
+}

@@ -1,0 +1,122 @@
+// Desabilitado
+@mixin disabled {
+  cursor: not-allowed;
+  opacity: var(--disabled);
+
+  * {
+    pointer-events: none;
+  }
+}
+
+// Hover
+@mixin hover {
+  &:not(:disabled) {
+    &:hover {
+      background-image: linear-gradient(rgba(var(--interactive-rgb), var(--hover)),
+      rgba(var(--interactive-rgb), var(--hover)));
+    }
+
+    &:active {
+      background-image: linear-gradient(rgba(var(--interactive-rgb), var(--pressed)),
+      rgba(var(--interactive-rgb), var(--pressed)));
+    }
+  }
+}
+
+/// Focus
+/// De acordo com o Fundamento Estado existem 2 tipos de focus:
+/// 1. Foco padrão: É a versão tracejada.
+/// 2. Foco tênue: É a versão atenuada.
+///
+/// Ambos podem ser aplicados em navegação por tab, porém apenas o focus tênue
+/// pode ser aplicado ao clicar no componente. Você precisará especificar se o
+/// focus será aplicado como focus ou focus-visible.
+///
+/// 1. Foco padrão:
+///    Aplicado somente em focus-visible.
+///
+///    Modo de uso:
+///      seletor {
+///        @include focus-soft;
+///      }
+///
+/// 2. Foco tênue:
+///    Pode ser aplicado em focus ou focus-visible.
+///
+///    Modo de uso:
+///      seletor {
+///        &:focus {
+///          outline: none;
+///        }
+///        &:focus-visible,
+///        &.focus-visible {
+///          @include focus-soft;
+///        }
+///      }
+///
+///      ou
+///
+///      seletor {
+///        &:focus,
+///        &:focus-visible,
+///        &.focus-visible {
+///          @include focus-soft;
+///        }
+///      }
+@mixin focus {
+  &:focus {
+    outline: none;
+  }
+
+  &.focus-visible,
+  &:focus-visible {
+    outline-color: var(--focus);
+    outline-offset: var(--focus-offset);
+    outline-style: var(--focus-style);
+    outline-width: var(--focus-width);
+  }
+}
+
+@mixin focus-soft {
+  border-color: var(--focus) !important;
+  box-shadow: 0 0 0 var(--surface-width-md) var(--focus);
+  outline: none;
+}
+
+// Ativo
+@mixin active {
+  background: var(--active);
+  color: var(--color-secondary-01);
+}
+
+// Dark mode
+@mixin dark-mode {
+  --color: var(--color-dark);
+  --color-rgb: var(--color-dark-rgb);
+  --color-hsl: var(--color-dark-hsl);
+  --text-color: var(--color);
+  --interactive: var(--interactive-dark);
+  --interactive-rgb: var(--interactive-dark-rgb);
+  --interactive-dark-hsl: var(--interactive-dark-hsl);
+  --visited: var(--gray-20);
+  --hover: var(--surface-opacity-sm);
+  --pressed: var(--surface-opacity-lg);
+  --focus-color: var(--gold-vivid-20);
+  --focus: var(--gold-vivid-20);
+  --active: var(--pure-0);
+}
+@mixin light-mode {
+  --color: var(--color-light);
+  --color-rgb: var(--color-light-rgb);
+  --color-hsl: var(--color-light-hsl);
+  --text-color: var(--color);
+  --interactive: var(--interactive-light);
+  --interactive-rgb: var(--interactive-light-rgb);
+  --interactive-hsl: var(--interactive-light-hsl);
+  --visited: var(--blue-warm-vivid-80);
+  --hover: var(--surface-opacity-xs);
+  --pressed: var(--surface-opacity-md);
+  --focus-color: var(--gold-vivid-40);
+  --focus: var(--gold-vivid-40);
+  --active: var(--blue-warm-vivid-80);
+}

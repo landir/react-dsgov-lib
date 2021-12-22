@@ -1,0 +1,10 @@
+
+@import "./mixins";
+
+
+.#{$prefix}modal {
+  @include modal;
+  
+}
+@include modal-responsive;
+
